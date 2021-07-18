@@ -5,13 +5,12 @@
       <detail-swiper :topImages="topImages"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
-      <aa></aa>
-      <detail-commer :commer="commer"></detail-commer>
       <detail-item-params :paramInfo="paramInfo"></detail-item-params>
       <detail-goods-info
         :detailInfo="detailInfo"
         @imgLoad="imgLoad"
       ></detail-goods-info>
+      <detail-commer :commer="commer"></detail-commer>
     </b-scroll>
   </div>
 </template>
@@ -25,7 +24,7 @@ import DetailShopInfo from "./detailChild/DetailShopInfo.vue";
 import DetailGoodsInfo from "./detailChild/DetailGoodsInfo.vue"
 import DetailItemParams from "./detailChild/DetailItemParams.vue"
 import DetailCommer from './detailChild/DetailCommer.vue';
-import aa from './aa.vue'
+
 import BScroll from "components/common/bscroll/BScroll"
 
 
@@ -40,7 +39,7 @@ export default {
     DetailGoodsInfo,
     DetailItemParams,
     DetailCommer,
-    aa,
+
     BScroll,
 
   },
