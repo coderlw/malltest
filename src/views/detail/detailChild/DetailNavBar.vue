@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav-bar>
+    <nav-bar class="dateil-nav">
       <div slot="left1" class="back" @click="backClick">
         <img src="~assets/img/common/back.svg" alt="" />
       </div>
@@ -43,7 +43,10 @@ export default {
 };
 </script>
 
-<style scoed>
+<style scoped>
+.dateil-nav {
+  background-color: #fff;
+}
 .title {
   display: flex;
 }

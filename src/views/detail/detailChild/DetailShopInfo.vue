@@ -25,6 +25,9 @@
         </tr>
       </table>
     </div>
+    <div class="bottom-shop">
+      <div class="enter-shop">进店逛逛</div>
+    </div>
   </div>
 </template>
 
@@ -42,9 +45,8 @@ export default {
 };
 </script>
 
-<style scoed>
+<style scoped>
 .shopInfo {
-  height: 2000px;
   padding: 10px;
 }
 .shop {
@@ -87,5 +89,19 @@ table {
 }
 table td {
   padding-right: 12px;
+}
+.bottom-shop {
+  width: 120px;
+  padding-top: 100px;
+  margin: 20px auto;
+}
+.enter-shop {
+  color: #333;
+  height: 32px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 30px;
+  background-color: #f2f5f8;
+  border-radius: 15px;
 }
 </style>

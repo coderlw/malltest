@@ -34,7 +34,7 @@ export default {
 };
 </script>
 
-<style scoed>
+<style scoed >
 .good-info {
   padding: 10px;
 }

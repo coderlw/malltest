@@ -32,3 +32,11 @@ export class Shop {
         this.services = shopInfo.services;
     }
 }
+
+export class ParamInfo {
+    constructor(info, rule) {
+        this.images = info.images ? info.images[0] : "";
+        this.info = info;
+        this.rule = rule;
+    }
+}

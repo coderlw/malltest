@@ -1,18 +1,34 @@
 <template>
-  <div>
-    <detail-nav-bar />
-    <detail-swiper :topImages="topImages"></detail-swiper>
-    <detail-base-info :goods="goods"></detail-base-info>
-    <detail-shop-info :shop="shop"></detail-shop-info>
+  <div id="detail">
+    <detail-nav-bar class="detail-nav" />
+    <b-scroll class="content" ref="scorll">
+      <detail-swiper :topImages="topImages"></detail-swiper>
+      <detail-base-info :goods="goods"></detail-base-info>
+      <detail-shop-info :shop="shop"></detail-shop-info>
+      <aa></aa>
+      <detail-commer :commer="commer"></detail-commer>
+      <detail-item-params :paramInfo="paramInfo"></detail-item-params>
+      <detail-goods-info
+        :detailInfo="detailInfo"
+        @imgLoad="imgLoad"
+      ></detail-goods-info>
+    </b-scroll>
   </div>
 </template>
 
 <script>
 import DetailNavBar from "./detailChild/DetailNavBar.vue";
-import { getDetailData, Goods, Shop } from "network/detail";
+import { getDetailData, Goods, Shop, ParamInfo } from "network/detail";
 import DetailSwiper from "./detailChild/DetailSwiper.vue";
 import DetailBaseInfo from "./detailChild/DetailBaseInfo.vue";
 import DetailShopInfo from "./detailChild/DetailShopInfo.vue";
+import DetailGoodsInfo from "./detailChild/DetailGoodsInfo.vue"
+import DetailItemParams from "./detailChild/DetailItemParams.vue"
+import DetailCommer from './detailChild/DetailCommer.vue';
+import aa from './aa.vue'
+import BScroll from "components/common/bscroll/BScroll"
+
+
 
 export default {
   name: "Detail",
@@ -21,6 +37,12 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailGoodsInfo,
+    DetailItemParams,
+    DetailCommer,
+    aa,
+    BScroll,
+
   },
   data() {
     return {
@@ -28,6 +50,9 @@ export default {
       topImages: [],
       goods: {},
       shop: {},
+      detailInfo: {},
+      paramInfo: {},
+      commer: {},
     };
   },
   created() {
@@ -39,12 +64,29 @@ export default {
       this.topImages = data.itemInfo.topImages;
       this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo);
       this.shop = new Shop(data.shopInfo);
-      console.log(this.shop);
+      this.detailInfo = data.detailInfo;
+      // console.log(this.shop);
+      this.paramInfo = new ParamInfo(data.itemParams.info, data.itemParams.rule);
+      this.commer = data.rate;
     });
   },
-  methods: {},
+  methods: {
+    imgLoad() {
+      this.$refs.scorll.refresh();
+    }
+  },
 };
 </script>
 
-<style scoed>
+<style scoped>
+#detail {
+  position: relative;
+  z-index: 5;
+  background-color: #fff;
+
+  height: 100vh;
+}
+.content {
+  height: calc(100% - 44px);
+}
 </style>
