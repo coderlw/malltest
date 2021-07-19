@@ -42,6 +42,7 @@ import BScroll from "components/common/bscroll/BScroll.vue";
 import BackTop from "../../components/content/backTop/BackTop.vue";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
+import { debounce } from 'common/utils'
 
 export default {
   name: "Home",
@@ -69,14 +70,17 @@ export default {
       tabSetOffTop: 0,
       isTabControl: false,
       saveY: 0,
+      itemImgListener: null
     };
   },
 
   mounted() {
-    const refresh = this.debounce(this.$refs.scroll.refresh);
-    this.$bus.$on("imgLoad", () => {
-      refresh();
-    });
+    const newRefresh = debounce(this.$refs.scroll.refresh);
+
+    this.itemImgListener = () => {
+      newRefresh();
+    }
+    this.$bus.$on("itemImgLoad", this.itemImgListener);
   },
   /* destroyed() {
     console.log("destroyed");
@@ -88,8 +92,11 @@ export default {
   deactivated() {
     this.saveY = this.$refs.scroll.getSaveY();
     // this.saveY = -1000;
+
+    this.$bus.$off('itemImgLoad', this.itemImgListener);
   },
   created() {
+    // 请求商品数据
     this.getHomeMultidata();
 
     this.getHomeGoods("pop");

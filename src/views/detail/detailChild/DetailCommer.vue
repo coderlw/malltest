@@ -54,7 +54,7 @@ export default {
 }
 .title {
   height: 50px;
-  padding: 10px 0;
+  padding: 5px 0;
   border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }
 .title .user-commer {
@@ -67,7 +67,7 @@ export default {
   padding-right: 15px;
 }
 .user-info {
-  padding: 20px 0;
+  padding: 10px 0;
   border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }
 .user-info img {

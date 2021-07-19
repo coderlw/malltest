@@ -11,21 +11,25 @@
         @imgLoad="imgLoad"
       ></detail-goods-info>
       <detail-commer :commer="commer"></detail-commer>
+      <goods-list :goods="recommend" />
     </b-scroll>
   </div>
 </template>
 
 <script>
 import DetailNavBar from "./detailChild/DetailNavBar.vue";
-import { getDetailData, Goods, Shop, ParamInfo } from "network/detail";
+import { getDetailData, Goods, Shop, ParamInfo, getRecommend } from "network/detail";
 import DetailSwiper from "./detailChild/DetailSwiper.vue";
 import DetailBaseInfo from "./detailChild/DetailBaseInfo.vue";
 import DetailShopInfo from "./detailChild/DetailShopInfo.vue";
 import DetailGoodsInfo from "./detailChild/DetailGoodsInfo.vue"
 import DetailItemParams from "./detailChild/DetailItemParams.vue"
 import DetailCommer from './detailChild/DetailCommer.vue';
+import GoodsList from 'components/content/goods/GoodsList'
+import { itemListenerMixin } from 'common/mixin'
 
 import BScroll from "components/common/bscroll/BScroll"
+
 
 
 
@@ -39,10 +43,10 @@ export default {
     DetailGoodsInfo,
     DetailItemParams,
     DetailCommer,
-
+    GoodsList,
     BScroll,
-
   },
+  mixins: [itemListenerMixin],
   data() {
     return {
       iid: null,
@@ -52,6 +56,8 @@ export default {
       detailInfo: {},
       paramInfo: {},
       commer: {},
+      recommend: [],
+      itemImgListener: null
     };
   },
   created() {
@@ -59,7 +65,6 @@ export default {
 
     getDetailData(this.iid).then((res) => {
       const data = res.result;
-      console.log(res);
       this.topImages = data.itemInfo.topImages;
       this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo);
       this.shop = new Shop(data.shopInfo);
@@ -68,6 +73,15 @@ export default {
       this.paramInfo = new ParamInfo(data.itemParams.info, data.itemParams.rule);
       this.commer = data.rate;
     });
+    getRecommend().then((res) => {
+      this.recommend = res.data.list;
+    })
+  },
+  mounted() {
+    console.log('bbbbbb');
+  },
+  distroyed() {
+    this.$bus.$off('itemImgLoad', this.itemImgListener);
   },
   methods: {
     imgLoad() {

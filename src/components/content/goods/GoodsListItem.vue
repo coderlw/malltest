@@ -1,12 +1,7 @@
 <template>
   <div class="goods-item">
     <a href="JavaScript:;">
-      <img
-        :src="goodsItem.show.img"
-        alt=""
-        @load="imgLoad"
-        @click="itemClick"
-      />
+      <img :src="showImg" alt="" @load="imgLoad" @click="itemClick" />
       <div class="item-info">
         <p class="title">{{ goodsItem.title }}</p>
         <span class="price">{{ goodsItem.price }}</span>
@@ -18,6 +13,7 @@
 
 <script>
 import GoodsList from "./GoodsList.vue";
+
 export default {
   name: "GoodsListItem",
   data() {
@@ -36,9 +32,14 @@ export default {
       },
     },
   },
+  computed: {
+    showImg() {
+      return this.goodsItem.image || this.goodsItem.show.img;
+    }
+  },
   methods: {
     imgLoad() {
-      this.$bus.$emit("imgLoad");
+      this.$bus.$emit("itemimgLoad");
     },
     itemClick() {
       this.$router.push("/detail/" + this.goodsItem.iid);

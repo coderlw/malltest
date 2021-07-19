@@ -8,6 +8,13 @@ export function getDetailData(iid) {
         }
     })
 }
+
+export function getRecommend() {
+    return request({
+        url: "/recommend",
+    })
+}
+
 export class Goods {
     constructor(itemInfo, columns, shopInfo) {
         this.title = itemInfo.title;
