@@ -16,15 +16,16 @@ export default {
 .nav-bar {
   position: relative;
   display: flex;
+
   height: 44px;
   line-height: 44px;
   text-align: center;
-
-  position: fixed;
+  z-index: 5;
+  /* position: fixed;
   top: 0px;
   left: 0px;
   right: 0px;
-  z-index: 5;
+  z-index: 5; */
 }
 .left,
 .right {

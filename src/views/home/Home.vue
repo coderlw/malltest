@@ -15,8 +15,13 @@
       @scroll="getBackTop"
       :pullingUp="true"
       @pullingUp="getloadMore"
+      class="content"
     >
-      <home-swiper :banners="banners" @imgLoad="swiperImgLoad"></home-swiper>
+      <home-swiper
+        :banners="banners"
+        @imgLoad="swiperImgLoad"
+        class="swiper"
+      ></home-swiper>
       <home-recommend :recommends="recommends" />
       <home-feature-view />
       <tab-control
@@ -26,7 +31,7 @@
       />
       <goods-list :goods="showGoods" />
     </b-scroll>
-    <back-top @click.native="backClick" v-show="isShow"></back-top>
+    <back-top @click.native="backTop" v-show="isShow"></back-top>
   </div>
 </template>
 
@@ -39,8 +44,8 @@ import HomeRecommend from "./homeChild/HomeRecommendView.vue";
 import HomeFeatureView from "./homeChild/HomeFetaureView.vue";
 import GoodsList from "../../components/content/goods/GoodsList";
 import BScroll from "components/common/bscroll/BScroll.vue";
-import BackTop from "../../components/content/backTop/BackTop.vue";
-
+// import BackTop from "../../components/content/backTop/BackTop.vue";
+import { backTopMixin } from 'common/mixin'
 import { getHomeMultidata, getHomeGoods } from "network/home";
 import { debounce } from 'common/utils'
 
@@ -54,8 +59,9 @@ export default {
     TabControl,
     GoodsList,
     BScroll,
-    BackTop,
+    // BackTop,
   },
+  mixins: [backTopMixin],
   data() {
     return {
       banners: [],
@@ -66,7 +72,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      isShow: false,
+      // isShow: false,
       tabSetOffTop: 0,
       isTabControl: false,
       saveY: 0,
@@ -137,13 +143,13 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0);
-    },
+    // backClick() {
+    //   this.$refs.scroll.scrollTo(0, 0);
+    // },
     getBackTop(position) {
-      // console.log(position);
-      this.isShow = -position.y > 1000;
+
       this.isTabControl = -position.y > this.tabSetOffTop;
+      this.positionListener(position);
     },
     getloadMore() {
       this.getHomeGoods(this.currentType);
@@ -180,15 +186,20 @@ export default {
 
 <style scoped>
 #home {
-  margin-top: 44px;
-  height: 100vh;
   position: relative;
+  height: 100vh;
 }
 .nav-bar {
+  position: relative;
   color: #fff;
   font-weight: 700;
+  height: 44px;
+  width: 100%;
   background-color: #ff5777;
   box-shadow: 0 1px 1px 2px rgba(100, 100, 100, 0.1);
+}
+.swiper {
+  margin-top: 50px;
 }
 
 .fixed {
@@ -198,7 +209,7 @@ export default {
   z-index: 5;
 }
 
-.wrapper {
+.content {
   /* height: calc(100% -93px); */
   position: absolute;
   top: 0px;

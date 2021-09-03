@@ -46,6 +46,7 @@ export default {
       this.scroll && this.scroll.scrollTo(0, 0, time);
     },
     refresh() {
+      // console.log(111111);
       this.scroll && this.scroll.refresh();
     },
     finishPullUp() {
@@ -58,5 +59,5 @@ export default {
 };
 </script>
 
-<style scoed>
+<style scoped>
 </style>

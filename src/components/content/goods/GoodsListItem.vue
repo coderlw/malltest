@@ -1,7 +1,7 @@
 <template>
   <div class="goods-item">
     <a href="JavaScript:;">
-      <img :src="showImg" alt="" @load="imgLoad" @click="itemClick" />
+      <img v-lazy="showImg" alt="" @load="imgLoad" @click="itemClick" />
       <div class="item-info">
         <p class="title">{{ goodsItem.title }}</p>
         <span class="price">{{ goodsItem.price }}</span>
@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import GoodsList from "./GoodsList.vue";
 
 export default {
   name: "GoodsListItem",
@@ -20,9 +19,6 @@ export default {
     return {
       show: null,
     };
-  },
-  components: {
-    GoodsList,
   },
   props: {
     goodsItem: {
@@ -34,7 +30,7 @@ export default {
   },
   computed: {
     showImg() {
-      return this.goodsItem.image || this.goodsItem.show.img;
+      return this.goodsItem.image || this.goodsItem.img || this.goodsItem.show.img;
     }
   },
   methods: {

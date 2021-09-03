@@ -32,9 +32,10 @@ export default {
   },
   methods: {
     imgLoad() {
-      if (++this.counter === this.imagesLength) {
-        this.$emit('imgLoad');
-      }
+
+      // if (++this.counter === this.imagesLength) {
+      this.$emit('imgLoad');
+      // }
     }
   },
   watch: {
